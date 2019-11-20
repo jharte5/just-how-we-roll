@@ -41,6 +41,10 @@ function rollOne () {
     const mean = oneDieMean(sixes)
     const bigMean = document.querySelector('#d6-rolls-mean')
     bigMean.innerText = mean
+
+    const median = oneDieMedian(sixes)
+    const bigMedian = document.querySelector('#d6-rolls-median')
+    bigMedian.innerText = median
 }
 document.querySelector('#d6-roll').addEventListener('click', rollOne )
 
@@ -78,8 +82,21 @@ function oneDieMean (sixes) {
 }
 
 // rollOne(mean)
-function oneDieMedian () {
+function oneDieMedian (sixes) {
+    let median = 0
+    let numsLen = sixes.length;
+    sixes.sort();
 
+    if (
+        numsLen % 2 === 0 
+    ) {
+        
+        median = (sixes[numsLen / 2 - 1] + sixes[numsLen / 2]) / 2;
+    } else { 
+        
+        median = sixes[(numsLen - 1) / 2];
+    }
+    return median;
 }
 function oneDieMode () {
 
