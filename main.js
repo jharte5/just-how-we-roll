@@ -79,7 +79,19 @@ document.querySelector('#double-d6-roll-2').addEventListener('click', rollTwo )
 function rollTwelve () {
     let roll = getRandomNumber(12)
     document.querySelector('#d12-roll').src=`./images/numbers/${roll}.png`
+    twelves.push(roll)
 
+    const mean = oneDieMean(twelves)
+    const bigMean = document.querySelector('#d12-rolls-mean')
+    bigMean.innerText = mean
+
+    const median = oneDieMedian(twelves)
+    const bigMedian = document.querySelector('#d12-rolls-median')
+    bigMedian.innerText = median
+
+    const mode = oneDieMode(twelves)
+    const bigMode = document.querySelector('#d12-rolls-mode')
+    bigMode.innerText = mode
 }
 document.querySelector('#d12-roll').addEventListener('click', rollTwelve)
 
@@ -185,6 +197,57 @@ function twoDieMode (doubleSixes) {
 
 }
 
+function blueDieMean (twelves) {
+    let total = 0, i;
+    for (i = 0; i < twelves.length; i += 1) {
+        total += twelves[i];
+    }
+    return total / twelves.length;
+
+
+}
+
+function blueDieMedian (twelves) {
+    let median = 0
+    let numsLen = twelves.length;
+    twelves.sort();
+
+    if (
+        numsLen % 2 === 0 
+    ) {
+        
+        median = (twelves[numsLen / 2 - 1] + twelves[numsLen / 2]) / 2;
+    } else { 
+        
+        median = twelves[(numsLen - 1) / 2];
+    }
+    return median;
+
+
+}
+
+function blueDieMode (twelves) {
+    let modes = []
+    let count = []
+    let number = 0
+    let maxIndex = 0;
+    for (i = 0; i < twelves.length; i += 1) {
+        number = twelves[i];
+        count[number] = (count[number] || 0) + 1;
+        if (count[number] > maxIndex) {
+            maxIndex = count[number];
+        }
+    }
+    for (i in count)
+        if (count.hasOwnProperty(i)) {
+            if (count[i] === maxIndex) {
+                modes.push(Number(i));
+            }
+        }
+    return modes;
+
+
+}
 
 /*********
  * RESET *
