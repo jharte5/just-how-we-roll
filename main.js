@@ -37,6 +37,7 @@ function getRandomNumber(max) {
 function rollOne () {
     let roll =  getRandomNumber(6) 
     document.querySelector('#d6-roll').src=`./images/d6/${roll}.png`
+
     sixes.push(roll)
     const mean = oneDieMean(sixes)
     const bigMean = document.querySelector('#d6-rolls-mean')
@@ -57,6 +58,20 @@ function rollTwo () {
     let rollAgain = getRandomNumber(6)
     document.querySelector('#double-d6-roll-1').src=`./images/d6/${roll}.png`
     document.querySelector('#double-d6-roll-2').src=`./images/d6/${rollAgain}.png`
+
+    doubleSixes.push(roll + rollAgain)
+    const mean = twoDieMean(doubleSixes)
+    const bigMean = document.querySelector('#double-d6-rolls-mean')
+    bigMean.innerText = mean
+
+    const median = twoDieMedian(doubleSixes)
+    const bigMedian = document.querySelector('#double-d6-rolls-median')
+    bigMedian.innerText = median
+
+    const mode = twoDieMode(doubleSixes)
+    const bigMode = document.querySelector('#double-d6-rolls-mode')
+    bigMode.innerText = mode
+
 }
 document.querySelector('#double-d6-roll-1').addEventListener('click', rollTwo )
 document.querySelector('#double-d6-roll-2').addEventListener('click', rollTwo )
@@ -85,7 +100,6 @@ function oneDieMean (sixes) {
 
 }
 
-// rollOne(mean)
 function oneDieMedian (sixes) {
     let median = 0
     let numsLen = sixes.length;
@@ -121,6 +135,54 @@ function oneDieMode (sixes) {
             }
         }
     return modes;
+}
+function twoDieMean (doubleSixes) {
+    let total = 0, i;
+    for (i = 0; i < doubleSixes.length; i += 1) {
+        total += doubleSixes[i];
+    }
+    return total / doubleSixes.length;
+
+}
+
+function twoDieMedian (doubleSixes) {
+    let median = 0
+    let numsLen = doubleSixes.length;
+    doubleSixes.sort();
+
+    if (
+        numsLen % 2 === 0 
+    ) {
+        
+        median = (doubleSixes[numsLen / 2 - 1] + doubleSixes[numsLen / 2]) / 2;
+    } else { 
+        
+        median = doubleSixes[(numsLen - 1) / 2];
+    }
+    return median;
+
+}
+
+function twoDieMode (doubleSixes) {
+    let modes = []
+    let count = []
+    let number = 0
+    let maxIndex = 0;
+    for (i = 0; i < doubleSixes.length; i += 1) {
+        number = doubleSixes[i];
+        count[number] = (count[number] || 0) + 1;
+        if (count[number] > maxIndex) {
+            maxIndex = count[number];
+        }
+    }
+    for (i in count)
+        if (count.hasOwnProperty(i)) {
+            if (count[i] === maxIndex) {
+                modes.push(Number(i));
+            }
+        }
+    return modes;
+
 }
 
 
