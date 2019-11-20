@@ -306,9 +306,17 @@ function blackDieMode (twenties) {
             }
         }
     return modes;
-
-
 }
 /*********
  * RESET *
  *********/
+
+function startOver () {
+    document.querySelector('#d6-roll').src='./images/start/d6.png'
+    document.querySelector('#double-d6-roll-1').src='./images/start/d6.png'
+    document.querySelector('#double-d6-roll-2').src='./images/start/d6.png'
+    document.querySelector('#d12-roll').src='./images/start/d12.jpeg'
+    document.querySelector('#d20-roll').src='./images/start/d20.jpg'
+
+}
+const button = document.querySelector('#reset-button').addEventListener('click', startOver)
