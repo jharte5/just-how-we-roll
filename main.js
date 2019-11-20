@@ -39,7 +39,7 @@ function rollOne () {
     document.querySelector('#d6-roll').src=`./images/d6/${roll}.png`
 
     sixes.push(roll)
-    const mean = oneDieMean(sixes)
+    const mean = oneDieMean(sixes).toFixed(2)
     const bigMean = document.querySelector('#d6-rolls-mean')
     bigMean.innerText = mean
 
@@ -60,7 +60,7 @@ function rollTwo () {
     document.querySelector('#double-d6-roll-2').src=`./images/d6/${rollAgain}.png`
 
     doubleSixes.push(roll + rollAgain)
-    const mean = twoDieMean(doubleSixes)
+    const mean = twoDieMean(doubleSixes).toFixed(2)
     const bigMean = document.querySelector('#double-d6-rolls-mean')
     bigMean.innerText = mean
 
@@ -81,7 +81,7 @@ function rollTwelve () {
     document.querySelector('#d12-roll').src=`./images/numbers/${roll}.png`
     twelves.push(roll)
 
-    const mean = oneDieMean(twelves)
+    const mean = oneDieMean(twelves).toFixed(2)
     const bigMean = document.querySelector('#d12-rolls-mean')
     bigMean.innerText = mean
 
@@ -100,7 +100,7 @@ function rollTwenty () {
     document.querySelector('#d20-roll').src=`./images/numbers/${roll}.png`
     twenties.push(roll)
 
-    const mean = oneDieMean(twenties)
+    const mean = oneDieMean(twenties).toFixed(2)
     const bigMean = document.querySelector('#d20-rolls-mean')
     bigMean.innerText = mean
 
