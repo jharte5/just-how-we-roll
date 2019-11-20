@@ -37,6 +37,10 @@ function getRandomNumber(max) {
 function rollOne () {
     let roll =  getRandomNumber(6) 
     document.querySelector('#d6-roll').src=`./images/d6/${roll}.png`
+    sixes.push(roll)
+    const mean = oneDieMean(sixes)
+    const bigMean = document.querySelector('#d6-rolls-mean')
+    bigMean.innerText = mean
 }
 document.querySelector('#d6-roll').addEventListener('click', rollOne )
 
@@ -64,6 +68,22 @@ document.querySelector('#d20-roll').addEventListener('click', rollTwenty)
 /****************
  * MATH SECTION *
  ****************/
+function oneDieMean (sixes) {
+    let total = 0, i;
+    for (i = 0; i < sixes.length; i += 1) {
+        total += sixes[i];
+    }
+    return total / sixes.length;
+
+}
+
+// rollOne(mean)
+function oneDieMedian () {
+
+}
+function oneDieMode () {
+
+}
 
 
 /*********
