@@ -45,6 +45,10 @@ function rollOne () {
     const median = oneDieMedian(sixes)
     const bigMedian = document.querySelector('#d6-rolls-median')
     bigMedian.innerText = median
+
+    const mode = oneDieMode(sixes)
+    const bigMode = document.querySelector('#d6-rolls-mode')
+    bigMode.innerText = mode
 }
 document.querySelector('#d6-roll').addEventListener('click', rollOne )
 
@@ -98,8 +102,25 @@ function oneDieMedian (sixes) {
     }
     return median;
 }
-function oneDieMode () {
-
+function oneDieMode (sixes) {
+    let modes = []
+    let count = []
+    let number = 0
+    let maxIndex = 0;
+    for (i = 0; i < sixes.length; i += 1) {
+        number = sixes[i];
+        count[number] = (count[number] || 0) + 1;
+        if (count[number] > maxIndex) {
+            maxIndex = count[number];
+        }
+    }
+    for (i in count)
+        if (count.hasOwnProperty(i)) {
+            if (count[i] === maxIndex) {
+                modes.push(Number(i));
+            }
+        }
+    return modes;
 }
 
 
