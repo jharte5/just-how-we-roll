@@ -98,6 +98,19 @@ document.querySelector('#d12-roll').addEventListener('click', rollTwelve)
 function rollTwenty () {
     let roll = getRandomNumber(20)
     document.querySelector('#d20-roll').src=`./images/numbers/${roll}.png`
+    twenties.push(roll)
+
+    const mean = oneDieMean(twenties)
+    const bigMean = document.querySelector('#d20-rolls-mean')
+    bigMean.innerText = mean
+
+    const median = oneDieMedian(twenties)
+    const bigMedian = document.querySelector('#d20-rolls-median')
+    bigMedian.innerText = median
+
+    const mode = oneDieMode(twenties)
+    const bigMode = document.querySelector('#d20-rolls-mode')
+    bigMode.innerText = mode
 }
 document.querySelector('#d20-roll').addEventListener('click', rollTwenty)
 /****************
@@ -222,8 +235,6 @@ function blueDieMedian (twelves) {
         median = twelves[(numsLen - 1) / 2];
     }
     return median;
-
-
 }
 
 function blueDieMode (twelves) {
@@ -245,10 +256,59 @@ function blueDieMode (twelves) {
             }
         }
     return modes;
+}
+
+function blackDieMean (twenties) {
+    let total = 0, i;
+    for (i = 0; i < twenties.length; i += 1) {
+        total += twenties[i];
+    }
+    return total / twenties.length;
 
 
 }
 
+function blackDieMedian (twenties) {
+    let median = 0
+    let numsLen = twenties.length;
+    twenties.sort();
+
+    if (
+        numsLen % 2 === 0 
+    ) {
+        
+        median = (twenties[numsLen / 2 - 1] + twenties[numsLen / 2]) / 2;
+    } else { 
+        
+        median = twenties[(numsLen - 1) / 2];
+    }
+    return median;
+
+
+}
+
+function blackDieMode (twenties) {
+    let modes = []
+    let count = []
+    let number = 0
+    let maxIndex = 0;
+    for (i = 0; i < twenties.length; i += 1) {
+        number = twenties[i];
+        count[number] = (count[number] || 0) + 1;
+        if (count[number] > maxIndex) {
+            maxIndex = count[number];
+        }
+    }
+    for (i in count)
+        if (count.hasOwnProperty(i)) {
+            if (count[i] === maxIndex) {
+                modes.push(Number(i));
+            }
+        }
+    return modes;
+
+
+}
 /*********
  * RESET *
  *********/
